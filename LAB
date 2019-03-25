@@ -1,0 +1,115 @@
+#include<stdio.h>
+#include<graphics.h>
+#define ScreenWidth getmaxx()
+#define ScreenHeight getmaxy()
+#define GroundY ScreenHeight*0.75
+int a=50;
+int ldisp=0;
+int ppp=0;
+void drawCloud()
+{
+    ppp++;
+    int y=40;
+    int z=ppp;
+    int r = 40;
+    arc(z, y, 45, 135, r);
+
+    arc(z + 50, y, 45, 135, r);
+    arc(z + 100, y, 45, 135, r);
+    arc(z, y, 135, 225, r);
+    arc(z+50,y,135+90,225+90,r);
+    arc(z,y,135+90,225+90,r);
+    arc(z+100,y,135+90,225+90,r);
+    arc(z+100,y,315,45,r);
+}
+void DrawManAndUmbrella(int x,int ldisp)
+{
+    circle(x,GroundY-90,10);
+    line(x,GroundY-80,x,GroundY-30);
+
+    rectangle(x,GroundY-80,x+5,GroundY-30);
+    for(int i=-5;i<=5;i++)
+    {
+
+    rectangle(x,GroundY-80,x+i,GroundY-30);
+    }
+
+    rectangle(x,GroundY-80,x-5,GroundY-30);
+
+
+    line(x,GroundY-70,x+10,GroundY-60);
+    line(x,GroundY-65,x+10,GroundY-55);
+    line(x+10,GroundY-60,x+20,GroundY-70);
+    line(x+10,GroundY-55,x+20,GroundY-70);
+
+    line(x,GroundY-30,x+ldisp,GroundY);
+    line(x,GroundY-30,x-ldisp,GroundY);
+
+    setfillstyle(SOLID_FILL,BLUE);
+    pieslice(x+20,GroundY-120,0,180,40);
+    line(x+20,GroundY-120,x+20,GroundY-70);
+
+
+    //second manush
+
+
+    circle(a+x,GroundY-90,10);
+    line(a+x,GroundY-80,a+x,GroundY-30);
+
+    rectangle(a+x,GroundY-80,a+x+1,GroundY-30);
+    rectangle(a+x,GroundY-80,a+x-1,GroundY-30);
+
+    line(a+x,GroundY-70,a+x+10-25,GroundY-60);
+    line(a+x,GroundY-65,a+x+10-25,GroundY-55);
+    line(a+x+10-25,GroundY-60,x+20,GroundY-70); //thik ase
+    line(a+x+10-25,GroundY-55,x+20,GroundY-70);  //thik ase
+
+    line(a+x,GroundY-30,a+x+ldisp,GroundY);
+    line(a+x,GroundY-30,a+x-ldisp,GroundY);
+}
+void Rain2(int x)
+{
+    int t=1000;
+    while(t--)
+    {
+        putpixel( rand()% getmaxx() , rand()%750,5 );
+    }
+}
+void SUN()
+{
+    setfillstyle(SOLID_FILL,YELLOW);
+    pieslice(300,70,0,360,30);
+}
+void Rain(int x)
+{
+    int i,rx,ry;
+    for(i=0; i<600; i++)
+    {
+        rx=rand() % ScreenWidth;
+        ry=rand() % ScreenHeight;
+        if(ry<GroundY-4)
+        {
+            if(ry<GroundY-120 || (ry>GroundY-120 && (rx<x-20 || rx>x+60)))
+                putpixel(rx,ry,10),putpixel(rx+.5,ry+4,10);
+        }
+    }
+}
+int main()
+{
+    int gd=DETECT,gm,x=0;
+    initgraph(&gd,&gm,"C:\\TurboC3\\BGI");
+    while(true)
+    {
+        line(0,GroundY,ScreenWidth,GroundY);
+        Rain(x);SUN();
+        drawCloud();
+        ldisp=(ldisp+2)%20;
+        DrawManAndUmbrella(x,ldisp);
+        delay(75);
+        cleardevice();
+        x=(x+2)%ScreenWidth;
+    }
+    getch();
+}
+
+
