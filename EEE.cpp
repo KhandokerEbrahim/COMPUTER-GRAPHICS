@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+#include<conio.h>
+#include<graphics.h>
+#include<dos.h>
+using namespace std;
+
+int  main() {
+
+    int gd=DETECT,gm;
+    initgraph(&gd,&gm,"C:\\tc\\bgi");
+
+    for (int i=0; i<=700; i++) {
+
+        rectangle(0+i,50,150+i,150 );
+        line(150+75+i,150 ,150+75+i,100);
+        line(150+i+40,80 ,150+75+i,100);
+        line(150+i,150,150+75+i,150);
+        line(150+i,80,150+40+i,80);
+
+// janala
+        rectangle(170+i,130-10,190+i,90);
+        circle(180+i,105,5);
+        circle(173+i,105,2);
+        circle(187+i,105,2);
+        if(i%2) {
+
+            circle(40+i,160,5);
+            circle(40+i,160,10);
+        } else {
+
+            circle(110+i+70,160,10);
+            circle(110+i+70,160,5);
+            setcolor(10);
+        }
+
+        // print E LOGO
+        line(50+i,70,20+30+i,130); // |
+        line(50+i,70,50+i+30,70);  //--
+        line(50+i,100,35+i+30,100);  //--
+        line(50+i,130,50+i+30,130);  //-
+
+        delay(1);
+        cleardevice();
+
+        line(0,170,800,170);
+
+    }
+    getch();
+}
